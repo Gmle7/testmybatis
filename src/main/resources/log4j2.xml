@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="Warn">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+		<!-- RollingFile是日志保存用的 -->
+		<!-- <RollingFile name="RollingFile" fileName="logs/trace.log"
+			filePattern="logs/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
+		</RollingFile> -->
+		<!-- 文件会打印出所有信息，这个log每次运行程序会自动清空，由append属性决定，这个也挺有用的，适合临时测试用 -->  
+		<!-- append为TRUE表示消息增加到指定文件中，false表示消息覆盖指定的文件内容，默认值是true -->  
+        <File name="Log" fileName="log/test.log" append="false">  
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <SizeBasedTriggeringPolicy size="2MB"/>  
+        </File>
+	</Appenders>
+	<Loggers>
+		<Root level="Trace">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="Log"/>
+		</Root>
+		<Logger name="cc.dao.UserMapper" level="Trace" additivity="false">
+			<Appender-Ref ref="Console"></Appender-Ref>
+		</Logger>
+	</Loggers>
+</Configuration>
